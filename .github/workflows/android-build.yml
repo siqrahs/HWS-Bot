@@ -1,0 +1,29 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build Android APK
+        run: |
+          # Perintah ini mengasumsikan folder 'android-wrapper' berisi project React Native
+          cd android-wrapper
+          chmod +x gradlew
+          ./gradlew assembleRelease
