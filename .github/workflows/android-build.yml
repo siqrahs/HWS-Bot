@@ -8,12 +8,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Next.js
+        run: npm run build
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -21,9 +28,24 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build Android APK
+      - name: Setup Android SDK
+        uses: actions/setup-android@v3
+
+      - name: Copy Build to Android Assets
         run: |
-          # Perintah ini mengasumsikan folder 'android-wrapper' berisi project React Native
-          cd android-wrapper
-          chmod +x gradlew
+          mkdir -p android-kotlin/app/src/main/assets
+          cp -r .next/standalone/* android-kotlin/app/src/main/assets/
+
+      - name: Grant Execute Permissions
+        run: chmod +x android-kotlin/gradlew
+
+      - name: Build APK
+        run: |
+          cd android-kotlin
           ./gradlew assembleRelease
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-apk
+          path: android-kotlin/app/build/outputs/apk/release/app-release.apk
