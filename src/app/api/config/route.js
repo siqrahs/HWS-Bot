@@ -1,4 +1,4 @@
-const { loadConfig, saveConfig } = require('../../lib/bot/config');
+import { loadConfig, saveConfig } from '@/lib/bot/config';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {

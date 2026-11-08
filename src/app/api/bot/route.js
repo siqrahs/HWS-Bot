@@ -1,4 +1,4 @@
-import { startBot } from '@/lib/bot/connection';
+import { startBot } from '@/lib/bot/connection.mjs';
 
 let botInstance = null;
 

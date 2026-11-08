@@ -1,11 +1,11 @@
 // server.js
-const { startBot } = require('./src/lib/bot/connection');
+async function start() {
+  const { startBot } = await import('./src/lib/bot/connection.mjs');
+  console.log("Starting Standalone Bot Engine...");
+  await startBot();
+  console.log("Bot engine is live!");
+}
 
-console.log("Starting Standalone Bot Engine...");
-
-// Jalankan bot tanpa perlu browser/UI Next.js
-startBot().then((sock) => {
-    console.log("Bot engine is live!");
-}).catch(err => {
-    console.error("Bot failed to start:", err);
+start().catch(err => {
+  console.error("Bot failed to start:", err);
 });
