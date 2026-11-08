@@ -16,6 +16,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Android Wrapper (Kedua nama folder)
+# Only ignore the OLD android-app folder. Keep android-kotlin for the build!
 android-app/
-android-kotlin/
