@@ -40,9 +40,6 @@ jobs:
           mkdir -p android-kotlin/app/src/main/assets
           cp -r .next/standalone/* android-kotlin/app/src/main/assets/
 
-      - name: Setup Gradle
-        uses: actions/setup-gradle@v4
-
       - name: Build APK (Debug)
         run: |
           cd android-kotlin
